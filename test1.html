@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://10.5.6.238:808/diqu.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <select name="" id="sheng" onchange="findsheng()">
+        <option>---选择---</option>
+    </select>
+    <select name="" id="shi">
+        <option>---选择---</option>
+    </select>
+    <script>       
+        function province(shengid){
+            var i = 0;
+            while (diqu[i]) {
+                var sheng = $('<option></option>').val(diqu[i].name).text(diqu[i].name+i);
+                $(shengid).append(sheng);
+                i++;
+            }
+        }
+        function city(num){
+            var i = 0;
+            while (diqu[num].city[i]){
+                var area = $('<option></option>').val(diqu[num].city[i].name).text(diqu[num].city[i].name).attr('onclick','city('+i+')');
+                $('#shi').append(area);
+                i++;
+            }
+        }
+        function findsheng(){
+            idd = $('#sheng').val().text();
+            console.log(idd);
+        }
+        province('#sheng');
+        // $(document).ready(function(){
+        //     $('#xuan').action()
+        // })
+
+    </script>
+</body>
+</html>
