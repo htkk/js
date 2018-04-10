@@ -9,34 +9,51 @@
     <title>Document</title>
 </head>
 <body>
-    <select name="" id="sheng" onchange="findsheng()">
-        <option>---选择---</option>
+    <select name="" id="sheng" onchange="city(this.value.match(/\d+/g)[0])">
     </select>
-    <select name="" id="shi">
-        <option>---选择---</option>
+    <select name="" id="shi" onchange="county(this.value.match(/\d+/g)[0])">
     </select>
-    <script>       
+    <select name="" id="xian">
+    </select>
+    <script>
+             
         function province(shengid){
             var i = 0;
             while (diqu[i]) {
-                var sheng = $('<option></option>').val(diqu[i].name).text(diqu[i].name+i);
+                var sheng = $('<option></option>').val(diqu[i].name+i).text(diqu[i].name);
                 $(shengid).append(sheng);
                 i++;
             }
+            city($('#sheng').val().match(/\d+/g)[0])
         }
+
         function city(num){
+            //var num = $('#sheng').val().match(/\d+/g)[0] 
             var i = 0;
+            $('#shi').empty()
             while (diqu[num].city[i]){
-                var area = $('<option></option>').val(diqu[num].city[i].name).text(diqu[num].city[i].name).attr('onclick','city('+i+')');
+                var area = $('<option></option>').val(diqu[num].city[i].name+i).text(diqu[num].city[i].name);
                 $('#shi').append(area);
+                i++;
+            }
+            county($('#shi').val().match(/\d+/g)[0])
+        }
+        function county(num) {
+            var snum = $('#sheng').val().match(/\d+/g)[0];
+            var i = 0;
+            $('#xian').empty()
+            while (diqu[snum].city[num].area[i]){
+                var area = $('<option></option>').val(diqu[snum].city[num].area[i]).text(diqu[snum].city[num].area[i]);
+                $('#xian').append(area);
                 i++;
             }
         }
         function findsheng(){
-            idd = $('#sheng').val().text();
-            console.log(idd);
+            idd = $('#sheng').val();
+            console.log(idd.match(/\d+/g)[0]);
         }
         province('#sheng');
+        
         // $(document).ready(function(){
         //     $('#xuan').action()
         // })
